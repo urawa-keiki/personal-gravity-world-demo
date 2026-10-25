@@ -1,0 +1,315 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>星の常識を、つくり変える。</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07101c;color:#eaf4fb;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;overflow:hidden}button,input{font:inherit}button{cursor:pointer;border:1px solid #365269;color:#dcecf5;background:#172c40;border-radius:10px;padding:12px 15px;transition:.15s}button:hover{background:#27445b}button:disabled{opacity:.4;cursor:wait}button.primary{background:#c5f1df;color:#143b35;border:0;font-weight:700;width:100%}.sky{position:fixed;inset:0;background:radial-gradient(ellipse at 65% 45%,#1d3e4b50,transparent 58%),radial-gradient(1px 1px at 21% 17%,#dcecff 70%,transparent),radial-gradient(1px 1px at 56% 25%,#9db9c9 70%,transparent),radial-gradient(1px 1px at 89% 70%,#9db9c9 70%,transparent);background-size:auto,233px 267px,347px 391px,307px 319px;pointer-events:none}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}header{position:fixed;left:32px;top:27px;pointer-events:none}header .tag{font-size:11px;letter-spacing:.25em;color:#94c8c7}h1{margin:10px 0 7px;font-size:27px;letter-spacing:.03em}header p{margin:0;color:#a6c0cc;font-size:13px}aside{position:fixed;left:28px;top:152px;width:278px;padding:22px;background:#0c1b2ae8;border:1px solid #253b4e;border-radius:18px;box-shadow:0 15px 60px #0003;backdrop-filter:blur(12px)}h2{font-size:14px;margin:0 0 23px}label{display:block;font-size:13px;color:#c8dce6;margin:22px 0 9px}label span{float:right;color:#799baf;font-size:11px}input[type=range]{width:100%;accent-color:#a5dfcd;cursor:pointer;margin:6px 0 18px}.hint{font-size:11px;line-height:1.8;color:#789aaf;margin:13px 0 0}.actions{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:flex;gap:9px;padding:8px;border-radius:16px;background:#0c1c2cdb;border:1px solid #294355;white-space:nowrap}.message{position:fixed;bottom:162px;left:330px;right:25px;text-align:center;pointer-events:none}#status{font-size:14px;text-shadow:0 2px 6px #000}#comparison{color:#8eafbf;font-size:11px;margin-top:9px}.view{position:fixed;right:30px;top:31px;text-align:right;color:#abc7d5;font-size:12px}.view small{display:block;margin-top:9px;color:#6e8c9f;font-size:10px}footer{background:#07101ce8;border-radius:8px;padding:7px 10px;position:fixed;bottom:16px;left:30px;right:30px;color:#708b9b;line-height:1.8;font-size:10px}#busy{position:fixed;top:48%;left:57%;color:#b8e9da;font-size:13px;background:#0c1c2cda;border:1px solid #476e70;border-radius:30px;padding:14px 24px;pointer-events:none}#busy[hidden]{display:none}#busy:before{content:'◌';display:inline-block;margin-right:9px;animation:spin 2s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:800px){header{left:18px;top:18px}h1{font-size:21px}header p{font-size:11px}.view{display:none}aside{left:14px;top:120px;width:210px;padding:16px}h2{margin-bottom:8px}label{margin-top:14px}.hint{font-size:10px}.actions{bottom:110px;gap:5px;flex-wrap:wrap;max-width:95vw;justify-content:center}.actions button{font-size:11px;padding:11px 10px}.message{left:235px;bottom:165px;font-size:11px}footer{left:16px;right:16px;font-size:9px}#busy{left:52%;font-size:11px}}
+@media(max-width:600px){
+header{left:12px;right:12px;top:12px}header .tag{font-size:8px;letter-spacing:.12em}h1{font-size:17px;margin:8px 0 6px}header p{font-size:10px;line-height:1.5}
+canvas{top:96px;height:calc(100% - 470px)}.view{display:block;top:105px;right:12px;font-size:9px}.view small{display:none}
+aside{top:auto;bottom:158px;left:10px;right:10px;width:auto;padding:12px 15px;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;border-radius:13px}
+aside h2{grid-column:1/3;font-size:11px;margin:0 0 9px}aside label{font-size:10px;margin:5px 0}aside label[for=hole]{grid-column:1;grid-row:2}aside label[for=bulge]{grid-column:2;grid-row:2}#hole{grid-column:1;grid-row:3}#bulge{grid-column:2;grid-row:3}aside input[type=range]{margin:5px 0 13px}aside .primary{grid-column:1/3;padding:10px;font-size:11px}aside .hint{display:none}
+.actions{bottom:82px;left:9px;right:9px;transform:none;max-width:none;flex-wrap:wrap;justify-content:center;padding:6px;gap:4px}.actions button{padding:8px;font-size:10px}.message{left:12px;right:12px;bottom:338px;background:#07101cbb;padding:8px;border-radius:8px}#status{font-size:11px;line-height:1.5}#comparison{font-size:9px;margin-top:4px}footer{left:8px;right:8px;bottom:5px;padding:6px 8px;font-size:8px;line-height:1.6;color:#a6bac7}#busy{left:50%;top:27%;transform:translateX(-50%);white-space:nowrap}
+}
+.sharing{position:fixed;right:25px;top:95px;display:flex;gap:8px;align-items:center}.sharing button,.sharing a{font-size:10px;padding:7px 10px}.sharing a{color:#aac8d6;text-decoration:none}@media(max-width:800px){.sharing{right:12px;top:80px}}@media(max-width:600px){.sharing{top:117px;left:12px;right:12px;justify-content:center}.sharing button,.sharing a{font-size:8px;padding:5px}.view{top:100px}} </style></head><body><div class="sky"></div><canvas id="scene" aria-label="形から海と重力を計算した仮想の星"></canvas>
+<header><div class="tag">SHAPE / SEA / GRAVITY</div><h1>星の常識を、つくり変える。</h1><p>形を変えたら、海と「下」はどこへ行く？ 水は編集ごとに世界全体へ再配置。</p></header>
+<aside><h2>あなたの星のかたち</h2><label for="hole">穴の広さ <span id="hole-value">0.60</span></label><input id="hole" type="range" min="0.35" max="0.85" step="0.05" value="0.6"><label for="bulge">片側のふくらみ <span id="bulge-value">0.0</span></label><input id="bulge" type="range" min="-0.5" max="0.8" step="0.1" value="0"><button class="primary" id="build">この形で海を作る</button><p class="hint">まず片側を膨らませ、海を作り直してください。「同じ場所」で編集前後を比べられます。水量は毎回同じです。</p><p class="hint">ドラッグで回転 · スクロールで近づく<br>黄色い点が、この星の海岸です。</p></aside>
+<div class="view"><span id="view-label">宇宙から見る</span><small id="state">最初の星を準備しています</small></div>
+<div id="busy" hidden>海を配置しています</div><div class="message"><div id="status" role="status">星を準備しています…</div><div id="comparison"></div></div>
+<div class="sharing"><button id="share" disabled>この星のURLをコピー</button><a id="feedback" href="https://github.com/urawa-keiki/personal-gravity-world-demo/issues/new" target="_blank" rel="noopener">感想を送る（GitHub・任意）</a></div><nav class="actions"><button id="orbit">星の全体を見る</button><button id="coast" disabled>海岸に降りる</button><button id="drop" disabled>石を落とす</button><button id="compare" disabled>同じ場所：編集前を見る</button></nav>
+<footer>無料の実験作品。星の形は外から固定。水は位置エネルギーの低い場所へ世界全体で再配置する静的な見本です。注ぐ流れ・各海に入れた水量の履歴は再現しません。<br>海岸への移動はカメラ表示です。石は重力だけを受け、水の抵抗・浮力を省略。自然に存在できる惑星や、完成したゲームではありません。</footer>
+<script id="physics" type="text/plain">'use strict';
+// Shared browser/Node numerical implementation. All physical coordinates use z-up.
+const N=63,P=128,H=4.8/(N-1),EPS=H/2,CELLS=N*N*N;
+const index=(i,j,k)=>(i*N+j)*N+k;
+const coord=i=>-2.4+i*H;
+let kernelSpectrum=null,baseCount=0;
+const reverse=new Uint16Array(P),cs=new Float64Array(P/2),sn=new Float64Array(P/2);
+for(let i=0;i<P;i++){let a=i,r=0;for(let b=0;b<7;b++){r=(r<<1)|(a&1);a>>=1;}reverse[i]=r;}
+for(let i=0;i<P/2;i++){cs[i]=Math.cos(2*Math.PI*i/P);sn[i]=Math.sin(2*Math.PI*i/P);}
+function line(re,im,start,stride,inverse){
+ for(let i=0;i<P;i++){let j=reverse[i];if(j>i){let a=start+i*stride,b=start+j*stride,t=re[a];re[a]=re[b];re[b]=t;t=im[a];im[a]=im[b];im[b]=t;}}
+ for(let len=2;len<=P;len*=2){let half=len/2,step=P/len;
+  for(let b=0;b<P;b+=len)for(let k=0;k<half;k++){
+   let a=start+(b+k)*stride,d=a+half*stride,w=k*step,c=cs[w],s=(inverse?1:-1)*sn[w];
+   let tr=c*re[d]-s*im[d],ti=s*re[d]+c*im[d],ar=re[a],ai=im[a];
+   re[a]=ar+tr;im[a]=ai+ti;re[d]=ar-tr;im[d]=ai-ti;
+  }
+ }
+}
+function fft3(re,im,inverse=false){
+ for(let i=0;i<P;i++)for(let j=0;j<P;j++)line(re,im,(i*P+j)*P,1,inverse);
+ for(let i=0;i<P;i++)for(let k=0;k<P;k++)line(re,im,i*P*P+k,P,inverse);
+ for(let j=0;j<P;j++)for(let k=0;k<P;k++)line(re,im,j*P+k,P*P,inverse);
+ if(inverse){let s=1/(P*P*P);for(let i=0;i<re.length;i++){re[i]*=s;im[i]*=s;}}
+}
+function kernel(){
+ if(kernelSpectrum)return kernelSpectrum;
+ let re=new Float64Array(P*P*P),im=new Float64Array(re.length);
+ for(let i=0;i<P;i++)for(let j=0;j<P;j++)for(let k=0;k<P;k++){
+  let x=(i<=P/2?i:i-P)*H,y=(j<=P/2?j:j-P)*H,z=(k<=P/2?k:k-P)*H;
+  re[(i*P+j)*P+k]=-1/Math.sqrt(x*x+y*y+z*z+EPS*EPS);
+ }
+ fft3(re,im);kernelSpectrum={re,im};return kernelSpectrum;
+}
+function makeMask(hole,bulge){
+ let mask=new Uint8Array(CELLS),R=(1.4+hole)/2,a=(1.4-hole)/2,count=0;
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++){
+  let x=coord(i),y=coord(j),z=coord(k),r=Math.hypot(x,y),w=r?Math.max(0,x/r)**4:0;
+  if((r-R)**2+z*z<=(a*(1+bulge*w))**2){mask[index(i,j,k)]=1;count++;}
+ }
+ return {mask,count};
+}
+function source(mask){
+ let xyz=[];for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++)if(mask[index(i,j,k)])xyz.push(coord(i),coord(j),coord(k));
+ return new Float64Array(xyz);
+}
+function hashMask(mask){let h=2166136261;for(let i=0;i<mask.length;i++)h=Math.imul(h^mask[i],16777619);return (h>>>0).toString(16).padStart(8,'0');}
+function direct(model,p){
+ let phi=0,g=[0,0,0],s=model.sources,m=model.massPerVoxel;
+ for(let i=0;i<s.length;i+=3){let x=p[0]-s[i],y=p[1]-s[i+1],z=p[2]-s[i+2],r2=x*x+y*y+z*z+EPS*EPS,r=Math.sqrt(r2),f=-m/(r2*r);phi-=m/r;g[0]+=f*x;g[1]+=f*y;g[2]+=f*z;}
+ return {phi,g};
+}
+function potential(mask,massPerVoxel){
+ let K=kernel(),re=new Float64Array(P*P*P),im=new Float64Array(re.length);
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++)if(mask[index(i,j,k)])re[(i*P+j)*P+k]=massPerVoxel;
+ fft3(re,im);
+ for(let i=0;i<re.length;i++){let a=re[i],b=im[i];re[i]=a*K.re[i]-b*K.im[i];im[i]=a*K.im[i]+b*K.re[i];}
+ fft3(re,im,true);let phi=new Float64Array(CELLS);
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++)phi[index(i,j,k)]=re[(i*P+j)*P+k];
+ return phi;
+}
+function sea(phi,mask,volume=1){
+ let vals=[];for(let i=0;i<CELLS;i++)if(!mask[i])vals.push(phi[i]);vals.sort((a,b)=>a-b);
+ let target=volume/H**3,level=vals[Math.ceil(target)-1],below=0,tied=0;
+ for(let i=0;i<CELLS;i++)if(!mask[i]){if(phi[i]<level-1e-10)below++;else if(Math.abs(phi[i]-level)<=1e-10)tied++;}
+ let fraction=(target-below)/tied,wet=new Float64Array(CELLS),sum=0,count=0,boundary=false;
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++){
+  let id=index(i,j,k);if(!mask[id]){wet[id]=phi[id]<level-1e-10?1:Math.abs(phi[id]-level)<=1e-10?fraction:0;}
+  if(wet[id]>0){sum+=wet[id];count++;if(i===0||j===0||k===0||i===N-1||j===N-1||k===N-1)boundary=true;}
+ }
+ let visited=new Uint8Array(CELLS),queue=new Int32Array(CELLS),components=0;
+ for(let id=0;id<CELLS;id++)if(wet[id]>0&&!visited[id]){
+  components++;let head=0,tail=1;queue[0]=id;visited[id]=1;
+  while(head<tail){let v=queue[head++],k=v%N,j=Math.floor(v/N)%N,i=Math.floor(v/(N*N));
+   for(let u of [i>0?v-N*N:-1,i<N-1?v+N*N:-1,j>0?v-N:-1,j<N-1?v+N:-1,k>0?v-1:-1,k<N-1?v+1:-1])
+    if(u>=0&&wet[u]>0&&!visited[u]){visited[u]=1;queue[tail++]=u;}
+  }
+ }
+ return {wet,level,volume:sum*H**3,count,components,boundary,fraction,
+  globalPlacementValid:!boundary&&Math.abs(sum*H**3-volume)<1e-9&&fraction>=0&&fraction<=1,eligible:components===1&&!boundary,status:components!==1?'UNRESOLVED_MULTIPLE_BASINS':boundary?'UNRESOLVED_BOUNDARY':'ELIGIBLE_STATIC_SEA'};
+}
+const dirs=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+function inside(a){return a.every(v=>v>=0&&v<N);}
+function coast(model){
+ let candidates=[],mask=model.mask,wet=model.ocean.wet;
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++)if(mask[index(i,j,k)]&&coord(j)<0&&coord(k)>=0){
+  let near=false;for(let dx=-2;dx<=2&&!near;dx++)for(let dy=-2;dy<=2&&!near;dy++)for(let dz=-2;dz<=2&&!near;dz++){
+   let b=[i+dx,j+dy,k+dz];if(inside(b)&&wet[index(...b)]>0)near=true;
+  }
+  if(!near)continue;
+  for(let normal of dirs){let b=[i+normal[0],j+normal[1],k+normal[2]];if(!inside(b))continue;let v=index(...b);
+   if(mask[v]||wet[v]>0)continue;
+   let p=[coord(i)+normal[0]*H/2,coord(j)+normal[1]*H/2,coord(k)+normal[2]*H/2];
+   let score=(p[0]+.65)**2+(p[1]+.65)**2+(p[2]-.3)**2;
+   candidates.push({point:p,normal,score});
+  }
+ }
+ candidates.sort((a,b)=>a.score-b.score);
+ for(let c of candidates.slice(0,150)){
+  let g=direct(model,c.point).g,len=Math.hypot(...g),up=g.map(v=>-v/len);
+  if(up.reduce((s,v,i)=>s+v*c.normal[i],0)>.25)return {...c,g,up};
+ }
+ return null;
+}
+function blockedSegment(model,a,b){
+ let d=b.map((v,i)=>v-a[i]),dd=d.reduce((s,v)=>s+v*v,0),radius=Math.sqrt(3)*H/2+.02,s=model.sources;
+ if(Math.sqrt(dd)>.02)return true;
+ for(let i=0;i<s.length;i+=3){let t=0;for(let k=0;k<3;k++)t+=(s[i+k]-a[k])*d[k];t=Math.max(0,Math.min(1,t/Math.max(dd,1e-30)));
+  let r2=0;for(let k=0;k<3;k++)r2+=(s[i+k]-a[k]-t*d[k])**2;if(r2<=radius*radius)return true;
+ }
+ return false;
+}
+function drop(model,dt=.005,start=null){
+ if(!start){if(!model.coast)return null;start=model.coast.point.map((v,i)=>v+.35*model.coast.up[i]);}
+ let p=start.slice(),v=[0,0,0],field=direct(model,p),energy=field.phi,records=[[0,...p,...v,energy]],reason='HORIZON',maxEnergy=0;
+ for(let t=1;t<=Math.round(3/dt);t++){
+  let next=p.map((q,k)=>q+v[k]*dt+.5*field.g[k]*dt*dt);
+  if(next.some(q=>q<=-2.4||q>=2.4)){reason='OUTSIDE_GRID';break;}
+  if(blockedSegment(model,p,next)){reason='PRECONTACT_STOP';break;}
+  let nf=direct(model,next);v=v.map((q,k)=>q+.5*(field.g[k]+nf.g[k])*dt);p=next;field=nf;
+  let E=.5*v.reduce((s,q)=>s+q*q,0)+field.phi;maxEnergy=Math.max(maxEnergy,Math.abs(E-energy)/Math.abs(energy));
+  records.push([t*dt,...p,...v,E]);
+ }
+ return {records,reason,dt,maxRelativeEnergyError:maxEnergy,start};
+}
+function build(hole=.6,bulge=0,withPaths=true){
+ const t=performance.now();if(!baseCount)baseCount=makeMask(.6,0).count;
+ let {mask,count}=makeMask(hole,bulge),sources=source(mask),massPerVoxel=1/baseCount,phi=potential(mask,massPerVoxel),ocean=sea(phi,mask);
+ let model={hole,bulge,mask,sources,massPerVoxel,phi,ocean,sourceHash:hashMask(mask),mass:count*massPerVoxel};
+ let COM=[0,0,0];for(let i=0;i<sources.length;i++)COM[i%3]+=sources[i]/count;model.COM=COM;
+ model.coast=ocean.globalPlacementValid?coast(model):null;model.path=withPaths&&model.coast?drop(model):null;
+ model.seconds=(performance.now()-t)/1000;return model;
+}
+function mesh(mask,water=false,solid=null){
+ let positions=[],normals=[];
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++){
+  let id=index(i,j,k);if(!(mask[id]>0))continue;
+  let p=[coord(i),coord(j),coord(k)];
+  for(let normal of dirs){let b=[i+normal[0],j+normal[1],k+normal[2]],bid=inside(b)?index(...b):-1;
+   if(bid>=0&&(mask[bid]>0||(water&&solid[bid])))continue;
+   let axis=normal.findIndex(v=>v!==0),a=(axis+1)%3,c=(axis+2)%3;
+   let quad=[];for(let [u,v] of [[-1,-1],[1,-1],[1,1],[-1,1]]){let q=p.slice();q[axis]+=normal[axis]*H/2;q[a]+=u*H/2;q[c]+=v*H/2;quad.push(q);}
+   for(let q of [0,1,2,0,2,3]){positions.push(...quad[q]);normals.push(...normal);}
+  }
+ }
+ return {positions:new Float32Array(positions),normals:new Float32Array(normals)};
+}
+function summary(m){return {hole:m.hole,bulge:m.bulge,sourceHash:m.sourceHash,mass:m.mass,COM:m.COM,
+  sea:{status:m.ocean.status,volume:m.ocean.volume,components:m.ocean.components,level:m.ocean.level,globalPlacementValid:m.ocean.globalPlacementValid},
+  coast:m.coast,path:m.path,seconds:m.seconds};}
+if(typeof module!=='undefined')module.exports={N,P,H,EPS,index,coord,makeMask,source,direct,potential,sea,build,drop,mesh,summary};
+else self.onmessage=e=>{
+ let {version,hole,bulge}=e.data;
+ try{
+  let m=build(hole,bulge),solid=mesh(m.mask),water=mesh(m.ocean.wet,true,m.mask);
+  self.postMessage({version,...summary(m),solid,water},[solid.positions.buffer,solid.normals.buffer,water.positions.buffer,water.normals.buffer]);
+ }catch(error){self.postMessage({version,error:String(error)});}
+};
+
+// UI protocol only; numerical functions above remain the qualified physics.js.
+self.onmessage=e=>{
+ let {version,hole,bulge,anchor,markerStart}=e.data;
+ try{
+  let m=build(hole,bulge),solid=mesh(m.mask),water=mesh(m.ocean.wet,true,m.mask),witness=null,witnessUnavailableReason=null;
+  if(anchor&&markerStart&&m.ocean.globalPlacementValid){
+   let g=direct(m,anchor).g,l=Math.hypot(...g);
+   let up=g.map(v=>-v/l),eye=anchor.map((v,i)=>v+.08*up[i]);
+   if(blockedSegment(m,eye,eye)||blockedSegment(m,markerStart,markerStart))witnessUnavailableReason='前の場所が地形に近すぎるため、同じ場所の比較は保留です。';
+   else witness={point:anchor,g,up,path:drop(m,.005,markerStart),sourceHash:m.sourceHash};
+  }
+  self.postMessage({version,...summary(m),solid,water,witness,witnessUnavailableReason},[solid.positions.buffer,solid.normals.buffer,water.positions.buffer,water.normals.buffer]);
+ }catch(error){self.postMessage({version,error:String(error)});}
+};
+</script><script>'use strict';
+const $=id=>document.getElementById(id);
+const launchParams=new URLSearchParams(location.hash.slice(1));
+for(const name of ['hole','bulge']){const input=$(name);if(launchParams.has(name)){let value=Number(launchParams.get(name));if(Number.isFinite(value)&&value>=Number(input.min)&&value<=Number(input.max)){value=Number((Number(input.min)+Math.round((value-Number(input.min))/Number(input.step))*Number(input.step)).toFixed(2));input.value=String(value);$(name+'-value').textContent=value.toFixed(name==='hole'?2:1);}}}
+const canvas=$('scene'),gl=canvas.getContext('webgl',{antialias:true,alpha:true});
+let version=0,world=null,oldWorld=null,solidMesh=null,waterMesh=null,mode='orbit',az=-2.3,el=.55,distance=4.7;
+let dropTime=-1,dropStart=0,drag=null,frameTime=0,lastCamera=null,shoreYaw=0,shorePitch=-.35;
+let compareAfter=true;
+let trailMesh=null,trailPath=null;
+const add=(a,b)=>a.map((v,i)=>v+b[i]),sub=(a,b)=>a.map((v,i)=>v-b[i]),scale=(a,s)=>a.map(v=>v*s);
+const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0),norm=a=>scale(a,1/(Math.hypot(...a)||1));
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function matrix(eye,target,up,aspect){
+ let z=norm(sub(eye,target)),x=norm(cross(up,z)),y=cross(z,x);
+ let v=[x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,eye),-dot(y,eye),-dot(z,eye),1];
+ let f=1/Math.tan(.48),near=.015,far=50,p=[f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0];
+ let out=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)out[c*4+r]+=p[k*4+r]*v[c*4+k];return out;
+}
+function shader(type,src){let s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+let program=null,attrs={},uniforms={};
+if(gl){
+ program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,`
+ attribute vec3 position;attribute vec3 normal;uniform mat4 vp;uniform vec3 offset;varying vec3 n;varying vec3 p;
+ void main(){p=position+offset;n=normal;gl_Position=vp*vec4(p,1.0);}`));
+ gl.attachShader(program,shader(gl.FRAGMENT_SHADER,`
+ precision mediump float;varying vec3 n;varying vec3 p;uniform float kind;uniform vec3 eye;
+ void main(){vec3 L=normalize(vec3(-.7,-.6,1.1));float light=.42+.58*max(0.0,dot(normalize(n),L));
+ float noise=fract(sin(dot(floor(p/.0774),vec3(12.9,78.2,34.7)))*4375.8);
+ vec3 base=mix(vec3(.40,.28,.19),vec3(.70,.57,.38),noise*.5+.5);
+ if(n.z>.5)base=mix(base,vec3(.26,.42,.32),.68);
+ if(kind>0.5)base=vec3(.05,.60,.79);
+ if(kind>1.5)base=vec3(1.0,.67,.21);
+ float rim=pow(1.0-max(0.0,dot(normalize(n),normalize(eye-p))),3.0);
+ vec3 color=base*light+vec3(.08,.17,.22)*rim;
+ if(kind>.5&&kind<1.5)color+=vec3(.18,.35,.35)*pow(max(0.0,dot(reflect(-L,normalize(n)),normalize(eye-p))),14.0);
+ gl_FragColor=vec4(color,1.0);}`));
+ gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
+ gl.useProgram(program);for(let a of ['position','normal'])attrs[a]=gl.getAttribLocation(program,a);
+ for(let u of ['vp','kind','eye','offset'])uniforms[u]=gl.getUniformLocation(program,u);
+ gl.enable(gl.DEPTH_TEST);
+}else{$('status').textContent='このブラウザで3D表示を利用できません。';}
+function upload(m){
+ let out={count:m.positions.length/3};for(let [key,attribute] of [['positions','position'],['normals','normal']]){let b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,m[key],gl.STATIC_DRAW);out[attribute]=b;}return out;
+}
+function removeMesh(m){if(m)for(let a of ['position','normal'])gl.deleteBuffer(m[a]);}
+function draw(m,kind,offset=[0,0,0],primitive=gl.TRIANGLES,limit=null){if(!m)return;gl.uniform1f(uniforms.kind,kind);gl.uniform3fv(uniforms.offset,offset);for(let a of ['position','normal']){gl.bindBuffer(gl.ARRAY_BUFFER,m[a]);gl.enableVertexAttribArray(attrs[a]);gl.vertexAttribPointer(attrs[a],3,gl.FLOAT,false,0,0);}gl.drawArrays(primitive,0,limit===null?m.count:limit);}
+let markerMesh=null;
+if(gl){let pos=[],nor=[],verts=[[.025,0,0],[-.025,0,0],[0,.025,0],[0,-.025,0],[0,0,.025],[0,0,-.025]];
+ for(let face of [[0,2,4],[2,1,4],[1,3,4],[3,0,4],[2,0,5],[1,2,5],[3,1,5],[0,3,5]]){let n=norm(cross(sub(verts[face[1]],verts[face[0]]),sub(verts[face[2]],verts[face[0]])));for(let i of face){pos.push(...verts[i]);nor.push(...n);}}
+ markerMesh=upload({positions:new Float32Array(pos),normals:new Float32Array(nor)});
+}
+const worker=new Worker(URL.createObjectURL(new Blob([$('physics').textContent],{type:'text/javascript'})));
+function build(){
+ version++;dropTime=-1;$('build').disabled=true;$('coast').disabled=true;$('drop').disabled=true;$('busy').hidden=false;
+ $('share').disabled=true;$('compare').disabled=true;$('hole').disabled=true;$('bulge').disabled=true;
+ $('status').textContent='新しい形と海を計算しています…';
+ worker.postMessage({version,hole:+$('hole').value,bulge:+$('bulge').value,anchor:world?.coast?.point,markerStart:world?.path?.start});
+}
+worker.onmessage=e=>{
+ let data=e.data;if(data.version!==version)return;
+ $('build').disabled=false;$('busy').hidden=true;$('hole').disabled=false;$('bulge').disabled=false;
+ if(data.error){$('status').textContent='計算できませんでした。'+data.error;return;}
+ oldWorld=world;world=data;canvas.dataset.sourceHash=data.sourceHash;canvas.dataset.displaySourceHash=data.sourceHash;canvas.dataset.version=data.version;canvas.dataset.mass=data.mass;canvas.dataset.waterVolume=data.sea.volume;canvas.dataset.components=data.sea.components;
+ canvas.dataset.anchor=JSON.stringify(data.witness?.point||null);canvas.dataset.witnessStart=JSON.stringify(data.witness?.path?.start||null);canvas.dataset.witnessSourceHash=data.witness?.sourceHash||'';
+ if(gl){let s=upload(data.solid),w=data.sea.globalPlacementValid?upload(data.water):null;removeMesh(solidMesh);removeMesh(waterMesh);solidMesh=s;waterMesh=w;}
+ $('coast').disabled=!world.coast;$('drop').disabled=!world.path;$('share').disabled=false;
+ $('compare').disabled=!(world.witness&&oldWorld?.coast);compareAfter=true;$('compare').textContent='同じ場所：編集前を見る';
+ $('status').textContent=world.sea.globalPlacementValid?'同じ水量を、この星の重力に応じて再配置しました。':'この形では水の配置を確定できませんでした。';
+ $('comparison').textContent=oldWorld&&oldWorld.sourceHash!==world.sourceHash?'前の星から、形と重力を再計算しました。':'まず星を回して、穴の中の海を見てください。';
+ if(data.witnessUnavailableReason)$('comparison').textContent=data.witnessUnavailableReason;
+ if(!world.coast||mode==='compare')mode='orbit';
+ $('view-label').textContent=mode==='shore'?'海岸から見る':'宇宙から見る';
+ $('state').textContent=`あなたの星 · ${world.sea.globalPlacementValid?'水の配置完了':'水の配置は保留'}`;
+};
+worker.onerror=e=>{$('busy').hidden=true;$('status').textContent='計算を続けられませんでした。';$('build').disabled=false;$('hole').disabled=false;$('bulge').disabled=false;};
+$('build').addEventListener('click',build);
+for(let name of ['hole','bulge'])$(name).addEventListener('input',()=>{
+ $(name+'-value').textContent=name==='hole'?Number($(name).value).toFixed(2):Number($(name).value).toFixed(1);
+ $('status').textContent='「この形で海を作る」で反映します。';
+ $('coast').disabled=true;$('drop').disabled=true;$('compare').disabled=true;$('share').disabled=true;
+});
+function showMeshes(data){if(!gl)return;removeMesh(solidMesh);removeMesh(waterMesh);solidMesh=upload(data.solid);waterMesh=data.sea.globalPlacementValid?upload(data.water):null;canvas.dataset.displaySourceHash=data.sourceHash;}
+function path(){return mode==='compare'?(compareAfter?world?.witness?.path:oldWorld?.path):world?.path;}
+$('compare').addEventListener('click',()=>{if(!world?.witness||!oldWorld?.coast)return;mode='compare';compareAfter=!compareAfter;dropTime=-1;shoreYaw=0;shorePitch=-.35;showMeshes(compareAfter?world:oldWorld);$('view-label').textContent='同じ場所 · '+(compareAfter?'編集後':'編集前');$('compare').textContent='同じ場所：'+(compareAfter?'編集前':'編集後')+'を見る';$('status').textContent=(compareAfter?'編集後':'編集前')+'：同じ場所の海と「下」です。';});
+$('coast').addEventListener('click',()=>{if(!world?.coast)return;showMeshes(world);mode='shore';shoreYaw=0;shorePitch=-.35;dropTime=-1;$('view-label').textContent='海岸から見る';$('status').textContent='足元の重力に合わせた海岸ビュー。ドラッグで見回せます。';});
+$('orbit').addEventListener('click',()=>{if(world)showMeshes(world);mode='orbit';distance=4.7;el=.55;az=-2.3;$('view-label').textContent='宇宙から見る';$('status').textContent='星の全体です。ドラッグで回して見てください。';});
+$('drop').addEventListener('click',()=>{if(!path())return;dropStart=performance.now();dropTime=0;$('status').textContent='石はこの星の引力だけで落ちます。水の抵抗・浮力は省略しています。';});
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;let dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(mode==='shore'||mode==='compare'){shoreYaw-=dx*.006;shorePitch=Math.max(-1.2,Math.min(.8,shorePitch+dy*.005));}else{az-=dx*.007;el=Math.max(-1.3,Math.min(1.3,el+dy*.005));}drag={x:e.clientX,y:e.clientY};});
+canvas.addEventListener('pointerup',()=>drag=null);
+canvas.addEventListener('wheel',e=>{e.preventDefault();if(mode==='orbit')distance=Math.max(2,Math.min(9,distance*Math.exp(e.deltaY*.001)));},{passive:false});
+function camera(){
+ if((mode==='shore'&&world?.coast)||(mode==='compare'&&world?.witness)){let c=mode==='compare'?(compareAfter?world.witness:oldWorld.coast):world.coast,up=c.up,eye=add(c.point,scale(up,.08));
+  let inward=sub([0,0,.12],c.point),tangent=norm(sub(inward,scale(up,dot(inward,up))));
+  let right=norm(cross(tangent,up)),yawed=add(scale(tangent,Math.cos(shoreYaw)),scale(right,Math.sin(shoreYaw)));
+  let direction=add(scale(yawed,Math.cos(shorePitch)),scale(up,Math.sin(shorePitch)));
+  return {eye,target:add(eye,direction),up};
+ }
+ return {eye:[distance*Math.cos(el)*Math.cos(az),distance*Math.cos(el)*Math.sin(az),distance*Math.sin(el)],target:[0,0,0],up:[0,0,1]};
+}
+function frame(now){
+ frameTime=now;
+ if(gl){let ratio=Math.min(2,devicePixelRatio||1),w=Math.round(canvas.clientWidth*ratio),h=Math.round(canvas.clientHeight*ratio);
+  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  let c=camera();lastCamera=c;gl.uniformMatrix4fv(uniforms.vp,false,matrix(c.eye,c.target,c.up,w/h));gl.uniform3fv(uniforms.eye,c.eye);
+  draw(solidMesh,0);draw(waterMesh,1);
+  if(world?.coast&&mode==='orbit')draw(markerMesh,2,add(world.coast.point,scale(world.coast.up,.04)));
+  if(dropTime>=0&&path()){dropTime=(now-dropStart)/1000;let active=path(),records=active.records,step=Math.min(records.length-1,Math.floor(dropTime/active.dt));draw(markerMesh,2,records[step].slice(1,4));
+   if(trailPath!==active){removeMesh(trailMesh);let positions=new Float32Array(records.length*3),normals=new Float32Array(positions.length);for(let i=0;i<records.length;i++){positions.set(records[i].slice(1,4),i*3);normals[i*3+2]=1;}trailMesh=upload({positions,normals});trailPath=active;}
+   draw(trailMesh,2,[0,0,0],gl.LINE_STRIP,step+1);
+   if(step===records.length-1&&dropTime>records[step][0]+2)dropTime=-1;}
+ }
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);if(gl)build();
+
+$('share').addEventListener('click',async()=>{
+ if(!world)return;
+ if(location.origin!=='https://urawa-keiki.github.io'||location.pathname!=='/personal-gravity-world-demo/'){$('status').textContent='いまは公開前の見本です。公開後に、この形のURLを共有できます。';return;}
+ const url=new URL('https://urawa-keiki.github.io/personal-gravity-world-demo/');url.hash=new URLSearchParams({hole:world.hole.toFixed(2),bulge:world.bulge.toFixed(2)}).toString();
+ try{await navigator.clipboard.writeText(url.href);$('status').textContent='この星を開けるURLをコピーしました。';}
+ catch{$('status').textContent='このURLをコピーできます：'+url.href;}
+});
+</script></body></html>
